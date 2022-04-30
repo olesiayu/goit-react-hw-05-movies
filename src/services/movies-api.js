@@ -8,7 +8,7 @@ async function fetchWithErrorHandling(url = '', config = {}) {
     : Promise.reject(new Error('Not found'));
 }
 
-export function fetchPopularFims(page) {
+export function fetchPopularFims() {
   return fetchWithErrorHandling(
     `${BASE_URL}/trending/movie/day?api_key=${API_KEY}&page=1`
   );
