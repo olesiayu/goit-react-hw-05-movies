@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
-import Cast from 'components/Cast/Cast';
-import Reviews from 'components/Reviews/Reviews';
 import * as moviesAPI from 'services/movies-api';
 import s from './MovieDetailsPage.module.css';
+
+const Cast = lazy(() => import('components/Cast/Cast'));
+const Reviews = lazy(() => import('components/Reviews/Reviews'));
 
 export default function MovieDetailsPage() {
   const navigate = useNavigate();
@@ -49,10 +50,12 @@ export default function MovieDetailsPage() {
         </ul>
         <hr />
       </div>
-      <Routes>
-        <Route path="cast" element={<Cast />} />
-        <Route path="reviews" element={<Reviews />} />
-      </Routes>
+      <Suspense fallback={<h2>LOADING...</h2>}>
+        <Routes>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

@@ -1,8 +1,12 @@
-import { Routes, Route } from 'react-router-dom';
-import Navigation from './Navigation/Navigation';
-import HomePage from './HomePage/HomePage';
-import MoviesPage from './MoviesPage/MoviesPage';
-import MovieDetailsPage from './MovieDetailsPage/MovieDetailsPage';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+
+const Navigation = lazy(() => import('./Navigation/Navigation'));
+const HomePage = lazy(() => import('./HomePage/HomePage'));
+const MoviesPage = lazy(() => import('./MoviesPage/MoviesPage'));
+const MovieDetailsPage = lazy(() =>
+  import('./MovieDetailsPage/MovieDetailsPage.js')
+);
 
 export default function App() {
   return (
@@ -10,11 +14,14 @@ export default function App() {
       <header>
         <Navigation />
       </header>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="movies/*" element={<MoviesPage />} />
-        <Route path="/movies/:movieID/*" element={<MovieDetailsPage />} />
-      </Routes>
+      <Suspense fallback={<h2>LOADING...</h2>}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="movies/*" element={<MoviesPage />} />
+          <Route path="/movies/:movieID/*" element={<MovieDetailsPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }
