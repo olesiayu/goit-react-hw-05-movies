@@ -1,8 +1,8 @@
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '919ec07d97461f424c0dcb1ca8e5ed20';
 
-async function fetchWithErrorHandling(url = '', config = {}) {
-  const response = await fetch(url, config);
+async function fetchWithErrorHandling(url = '') {
+  const response = await fetch(url);
   return response.ok
     ? await response.json()
     : Promise.reject(new Error('Not found'));
@@ -14,9 +14,9 @@ export function fetchPopularFims() {
   );
 }
 
-export function fetchSearchMovies(searchQuery, page) {
+export function fetchSearchMovies(searchQuery) {
   return fetchWithErrorHandling(
-    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${searchQuery}&language=en-US&page=${page}&include_adult=false`
+    `${BASE_URL}search/movie?api_key=${API_KEY}&query=${searchQuery}`
   );
 }
 

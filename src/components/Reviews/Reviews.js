@@ -10,7 +10,6 @@ export default function Reviews() {
     moviesAPI.fetchMovieReviews(movieID).then(rewiews => {
       setReview([...rewiews.results]);
     });
-    // console.log(actors);
   }, [movieID]);
 
   return (

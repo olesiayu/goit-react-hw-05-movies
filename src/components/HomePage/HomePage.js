@@ -11,12 +11,9 @@ export default function HomePage() {
     });
   }, []);
 
-  //   setPopularMovies([...result.results]);
-
-  //   console.log(popularMovies);
-  //   const results = popularMovies.results;
   return (
     <>
+      <h2> Trending today</h2>
       {popularMovies && (
         <ul>
           {popularMovies.map(movie => (

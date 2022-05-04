@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import s from './Navigation.module.css';
 
 const Navigation = () => {
   return (
@@ -7,18 +6,17 @@ const Navigation = () => {
       <NavLink
         end
         to="/"
-        className={({ isActive }) =>
-          'nav-link' + (isActive ? ' activated' : '')
-        }
+        style={({ isActive }) => ({
+          marginRight: 10,
+          color: isActive ? 'red' : 'black',
+        })}
       >
         Home
       </NavLink>
 
       <NavLink
         to="/movies"
-        className={({ isActive }) =>
-          'nav-link' + (isActive ? ' activated' : '')
-        }
+        style={({ isActive }) => ({ color: isActive ? 'red' : 'black' })}
       >
         Movies
       </NavLink>
