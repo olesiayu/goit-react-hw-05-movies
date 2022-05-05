@@ -1,37 +1,37 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import * as moviesAPI from 'services/movies-api';
 
 export default function MoviesPage() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchMovie, setSearchMovie] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('searchMovie')) ?? [];
-  });
+  const [searchMovie, setSearchMovie] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
 
   useEffect(() => {
-    window.localStorage.setItem('searchMovie', JSON.stringify(searchMovie));
-  }, [searchMovie]);
+    if (query) {
+      moviesAPI.fetchSearchMovies(query).then(movies => {
+        setSearchMovie([...movies.results]);
+      });
+    }
+  }, [query]);
 
-  const handleMovieChange = event => {
-    setSearchQuery(event.currentTarget.value.toLowerCase());
-  };
+  // const handleMovieChange = event => {
+  //   setSearchQuery(event.currentTarget.value.toLowerCase());
+  // };
 
   const handleSubmit = event => {
     event.preventDefault();
+    setSearchParams({
+      query: event.currentTarget.elements.query.value,
+    });
 
-    if (searchQuery.trim() === '') {
+    if (query === '') {
       return alert('Enter a search query');
     }
 
-    moviesAPI.fetchSearchMovies(searchQuery).then(movies => {
-      setSearchMovie([...movies.results]);
-    });
+    // navigate({ ...location, search: `query=${searchQuery}` });
 
-    navigate({ ...location, search: `query=${searchQuery}` });
-
-    setSearchQuery('');
+    // setSearchParams('');
   };
 
   return (
@@ -39,8 +39,9 @@ export default function MoviesPage() {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={searchQuery}
-          onChange={handleMovieChange}
+          name="query"
+          // value={searchQuery}
+          // onChange={handleMovieChange}
           autoComplete="off"
           autoFocus
           placeholder="Search movie"
@@ -53,9 +54,9 @@ export default function MoviesPage() {
 
       {searchMovie && (
         <ul>
-          {searchMovie.map(movie => (
-            <li key={movie.id}>
-              <Link to={`${movie.id}`}>{movie.title}</Link>
+          {searchMovie.map(({ id, title }) => (
+            <li key={id}>
+              <Link to={`${id}`}>{title}</Link>
             </li>
           ))}
         </ul>

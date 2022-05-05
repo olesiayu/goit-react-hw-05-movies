@@ -18,10 +18,10 @@ export default function Reviews() {
         <p>We don't have any reviews for this movie </p>
       ) : (
         <ul>
-          {review.map(oneReview => (
-            <li key={oneReview.id}>
-              <h5>Author: {oneReview.author}</h5>
-              <p>{oneReview.content}</p>
+          {review.map(({ id, author, content }) => (
+            <li key={id}>
+              <h5>Author: {author}</h5>
+              <p>{content}</p>
             </li>
           ))}
         </ul>

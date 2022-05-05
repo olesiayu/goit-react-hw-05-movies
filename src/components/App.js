@@ -1,11 +1,19 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
-const Navigation = lazy(() => import('./Navigation/Navigation'));
-const HomePage = lazy(() => import('./HomePage/HomePage'));
-const MoviesPage = lazy(() => import('./MoviesPage/MoviesPage'));
+const Navigation = lazy(() =>
+  import('./Navigation/Navigation' /* webpackChunkName "navigation" */)
+);
+const HomePage = lazy(() =>
+  import('./HomePage/HomePage' /* webpackChunkName "homePage" */)
+);
+const MoviesPage = lazy(() =>
+  import('./MoviesPage/MoviesPage' /* webpackChunkName "movies-page" */)
+);
 const MovieDetailsPage = lazy(() =>
-  import('./MovieDetailsPage/MovieDetailsPage.js')
+  import(
+    './MovieDetailsPage/MovieDetailsPage.js' /* webpackChunkName "movie-details-page" */
+  )
 );
 
 export default function App() {
