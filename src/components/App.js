@@ -15,6 +15,12 @@ const MovieDetailsPage = lazy(() =>
     './MovieDetailsPage/MovieDetailsPage.js' /* webpackChunkName "movie-details-page" */
   )
 );
+const Cast = lazy(() =>
+  import('components/Cast/Cast' /* webpackChunkName "cast" */)
+);
+const Reviews = lazy(() =>
+  import('components/Reviews/Reviews' /* webpackChunkName "reviews" */)
+);
 
 export default function App() {
   return (
@@ -26,7 +32,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="movies/*" element={<MoviesPage />} />
-          <Route path="/movies/:movieID/*" element={<MovieDetailsPage />} />
+          <Route path="/movies/:movieID/*" element={<MovieDetailsPage />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>

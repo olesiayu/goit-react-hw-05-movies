@@ -1,25 +1,10 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
-import {
-  Routes,
-  Route,
-  Link,
-  useParams,
-  useNavigate,
-  useLocation,
-} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useParams, useNavigate, Outlet } from 'react-router-dom';
 import * as moviesAPI from 'services/movies-api';
 import s from './MovieDetailsPage.module.css';
 
-const Cast = lazy(() =>
-  import('components/Cast/Cast' /* webpackChunkName "cast" */)
-);
-const Reviews = lazy(() =>
-  import('components/Reviews/Reviews' /* webpackChunkName "reviews" */)
-);
-
 export default function MovieDetailsPage() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { movieID } = useParams();
   const [movie, setMovie] = useState(null);
 
@@ -64,12 +49,7 @@ export default function MovieDetailsPage() {
         </ul>
         <hr />
       </div>
-      <Suspense fallback={<h2>LOADING...</h2>}>
-        <Routes>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
-        </Routes>
-      </Suspense>
+      <Outlet />
     </>
   );
 }

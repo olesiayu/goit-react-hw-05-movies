@@ -10,7 +10,7 @@ async function fetchWithErrorHandling(url = '') {
 
 export function fetchPopularFims() {
   return fetchWithErrorHandling(
-    `${BASE_URL}/trending/movie/day?api_key=${API_KEY}&page=1`
+    `${BASE_URL}trending/movie/day?api_key=${API_KEY}&page=1`
   );
 }
 
@@ -22,18 +22,18 @@ export function fetchSearchMovies(searchQuery) {
 
 export function fetchMovieDetails(movie_id) {
   return fetchWithErrorHandling(
-    `${BASE_URL}/movie/${movie_id}?api_key=${API_KEY}`
+    `${BASE_URL}movie/${movie_id}?api_key=${API_KEY}`
   );
 }
 
 export function fetchActors(movie_id) {
   return fetchWithErrorHandling(
-    `${BASE_URL}/movie/${movie_id}/credits?api_key=${API_KEY}`
+    `${BASE_URL}movie/${movie_id}/credits?api_key=${API_KEY}`
   );
 }
 
 export function fetchMovieReviews(movie_id) {
   return fetchWithErrorHandling(
-    `${BASE_URL}/movie/${movie_id}/reviews?api_key=${API_KEY}`
+    `${BASE_URL}movie/${movie_id}/reviews?api_key=${API_KEY}`
   );
 }
