@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/698.2ddc5c9f.chunk.css","mappings":"AAAA,8BACI,YACJ,CAEA,8BACI,gBACJ","sources":["components/MovieDetailsPage/MovieDetailsPage.module.css"],"sourcesContent":[".film {\n    display: flex;\n}\n\n.info {\n    margin-left: 10px;\n}"],"names":[],"sourceRoot":""}
