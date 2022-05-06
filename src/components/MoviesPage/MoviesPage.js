@@ -1,18 +1,11 @@
 import { useState, useEffect } from 'react';
-import {
-  Link,
-  useLocation,
-  useSearchParams,
-  useNavigate,
-} from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import * as moviesAPI from 'services/movies-api';
 
 export default function MoviesPage() {
   const [searchMovie, setSearchMovie] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState('');
-  const location = useLocation();
-  const navigate = useNavigate();
   const searchQuery = searchParams.get('query');
 
   useEffect(() => {
@@ -24,13 +17,13 @@ export default function MoviesPage() {
   }, [searchQuery]);
 
   const handleMovieChange = event => {
-    setQuery(event.currentTarget.value.toLowerCase());
+    setQuery(event.currentTarget.value.toLowerCase().trim());
   };
 
   const handleSubmit = event => {
     event.preventDefault();
 
-    if (query === '') {
+    if (query.trim() === '') {
       setSearchMovie([]);
       setSearchParams('');
       return alert('Enter a search query');
